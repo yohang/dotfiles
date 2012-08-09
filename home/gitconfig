@@ -1,0 +1,17 @@
+[user]
+	name = yohang
+	email = yohan@giarel.li
+[color]
+	ui = true
+[alias]
+	st = status
+	tree = log --graph --pretty --oneline
+	unstage = reset HEAD
+	update-submodule = submodule update --init --recursive
+[core]
+	excludesfile = ~/.gitignore_global
+	editor = vim
+[aliases]
+	tree = log --graph --pretty --oneline
+[push]
+	default = current

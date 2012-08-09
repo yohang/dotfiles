@@ -1,0 +1,14 @@
+#!/usr/bin/env sh
+
+for file in `ls  ./home`
+do
+	rm ~/.$file
+	ln -vs $PWD/home/$file ~/.$file
+done
+
+for file in `ls  ./commands`
+do
+	sudo rm /usr/bin/$file
+	sudo ln -vs $PWD/commands/$file /usr/bin/$file
+done
+

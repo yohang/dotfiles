@@ -1,0 +1,65 @@
+set nocompatible
+filetype off
+call pathogen#infect()
+
+" Parts of this config is stolen from @futurecat's config :
+" https://github.com/marcw/vim-config/blob/master/_vimrc
+
+" Editor Basics Configuration
+    filetype plugin indent on
+
+" Filetypes
+    autocmd BufRead *.twig set filetype=jinja
+    autocmd BufRead *.html.twig set filetype=htmljinja
+    autocmd BufRead *.less set filetype=less
+
+" Colors
+    syntax on
+
+    " Set solarized as colorscheme, dark for vim, light for (g|m)vim
+    if has('gui_running')
+        set background=light
+        colorscheme solarized
+    endif
+
+" Turn off bells
+    set noerrorbells
+    set vb
+
+" Code Editing
+    set ff=unix             " Unix EOL
+    set fileencoding=UTF-8  " Speak UTF-8
+    set encoding=UTF-8      " Display UTF-8
+    set shiftround          " when at 3 spaces, and I hit > ... go to 4, not 5
+    set ignorecase          " case sensitivity is dumb
+    set smartcase           " but not where there are different cases
+    set nowrap              " No, I don't want wordwrap
+    set tabstop=4 
+    set shiftwidth=4 
+    set expandtab           " We do not want tabs, do we?
+
+" Visual
+    set cursorline          " Highlight the current line
+    set scrolloff=8         " Keep x line for scope while scrolling
+    set sidescrolloff=8     " same same
+    set showmatch           " Show matching bracket
+    set mouse=a             " Activate mouse    
+    set number              " Display line numbers
+    set ruler               " Always show current position along the bottom
+    set showcmd             " Show the command being typed
+
+" StatusBar
+    set laststatus=2
+    let g:Powerline_symbols = 'fancy'
+
+
+" MiniBufExplorer settings
+    let g:miniBufExplMapWindowNavVim = 1        " Allow navigation into buffers with control + [hjkl]
+    let g:miniBufExplMapWindowNavArrows = 1     " Same as previous but with arrow keys
+
+" Startup
+    autocmd vimenter * NERDTree " Auto-start NerdTree
+
+" Events
+"   # Close NerdTree (And, in fact, Vim) if there is no other opened buffers
+    autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif 
