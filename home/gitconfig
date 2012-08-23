@@ -10,7 +10,7 @@
 	update-submodule = submodule update --init --recursive
 [core]
 	excludesfile = ~/.gitignore_global
-	editor = vim
+	editor = mvim
 [aliases]
 	tree = log --graph --pretty --oneline
 [push]

@@ -37,6 +37,7 @@ alias s2="app/console"
 alias bh="bin/behat --lang=fr"
 alias pu="phpunit --colors"
 
+
 # Functions
 function help {
 	man -t $1 | open -f -a /Applications/Preview.app
