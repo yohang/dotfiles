@@ -18,7 +18,7 @@ call pathogen#infect()
 
     " Set solarized as colorscheme, dark for vim, light for (g|m)vim
     if has('gui_running')
-        set background=light
+        set background=dark
         colorscheme solarized
     endif
 
