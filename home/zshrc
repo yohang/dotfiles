@@ -36,7 +36,8 @@ export EDITOR=vim
 alias s2="app/console"
 alias bh="bin/behat --lang=fr"
 alias pu="phpunit --colors"
-
+alias spu="phpunit --colors -c app"
+alias my="mysql -uroot -S/tmp/mysql.sock"
 
 # Functions
 function help {
