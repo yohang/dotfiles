@@ -12,13 +12,14 @@ call pathogen#infect()
     autocmd BufRead *.twig set filetype=jinja
     autocmd BufRead *.html.twig set filetype=htmljinja
     autocmd BufRead *.less set filetype=less
+    autocmd BufRead *.go set filetype=go
 
 " Colors
     syntax on
 
     " Set solarized as colorscheme, dark for vim, light for (g|m)vim
     if has('gui_running')
-        set background=dark
+        set background=light
         colorscheme solarized
     endif
 

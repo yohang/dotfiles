@@ -1,0 +1,5 @@
+#!/usr/bin/env sh
+
+sudo sed -ie "s/xdebug.profiler_enable = On/xdebug.profiler_enable = Off/g" /opt/local/etc/php54/php.ini
+sudo apachectl restart
+

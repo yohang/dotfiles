@@ -28,7 +28,7 @@ plugins=(git django symfony2 macports github osx)
 source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
-export PATH=/usr/local/bin:/opt/local/bin:/opt/local/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin:/Users/yohan/Projets/Android/sdk/tools:/usr/local/mongodb/bin:/opt/pear/bin
+export PATH=/usr/local/bin:/opt/local/bin:/opt/local/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin:/Users/yohan/Projets/Android/sdk/tools:/usr/local/mongodb/bin:/opt/pear/bin:/opt/google_appengine
 export NODE_PATH=/opt/local/lib/node_modules
 export EDITOR=vim
 
@@ -43,3 +43,6 @@ alias my="mysql -uroot -S/tmp/mysql.sock"
 function help {
 	man -t $1 | open -f -a /Applications/Preview.app
 }
+
+### Added by the Heroku Toolbelt
+export PATH="/usr/local/heroku/bin:$PATH"
