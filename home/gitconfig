@@ -8,6 +8,9 @@
 	tree = log --graph --pretty --oneline
 	unstage = reset HEAD
 	update-submodule = submodule update --init --recursive
+	co = checkout
+	ci = commit
+	m = merge --no-ff
 [core]
 	excludesfile = ~/.gitignore_global
 	editor = vim
@@ -15,3 +18,7 @@
 	tree = log --graph --pretty --oneline
 [push]
 	default = current
+[github]
+	user = yohang
+[ghi]
+	token = 494cded615d706a63808b39b69188f62ac2eef62
