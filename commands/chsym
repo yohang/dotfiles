@@ -12,7 +12,7 @@ chcache () {
 
 # symfony 1.4
 if [ -d cache ]; then chcache "cache"; fi
-if [ -d logs ]; then chcache "logs"; fi
+if [ -d log ]; then chcache "log"; fi
 
 # Symfony2
 if [ -d app/cache ]; then chcache "app/cache"; fi
