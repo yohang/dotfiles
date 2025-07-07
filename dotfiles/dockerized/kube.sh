@@ -2,14 +2,14 @@
 
 SCRIPT_DIRECTORY="${0:a:h}"
 
-function docker_lastpass {
-  IMAGE_NAME="ygiarelli/lastpass-cli"
+function docker_kube {
+  IMAGE_NAME="ygiarelli/kube"
 
   if [ -z "$(docker image list -q "${IMAGE_NAME}" 2> /dev/null)" ]; then
      docker build \
          --build-arg USER_ID=${UID} \
          --build-arg USER_NAME="${USER}" \
-         -f "${SCRIPT_DIRECTORY}/lastpass.Dockerfile" \
+         -f "${SCRIPT_DIRECTORY}/kube.Dockerfile" \
          -t "${IMAGE_NAME}" \
          "${SCRIPT_DIRECTORY}"
   fi
@@ -27,13 +27,16 @@ function docker_lastpass {
 
   docker run -it --rm \
     -v /home:/home \
+    --network host \
     ${EXTRA_ARGS} \
     "${IMAGE_NAME}" \
     "${@}"
 }
 
-clean_lastpass_docker_image() {
+clean_kube_docker_image() {
   docker image list -q "${IMAGE_NAME}:*" | xargs -r docker image rm -f
 }
 
-alias lpass=docker_lastpass
+alias kubectl="docker_kube"
+alias k9s="docker_kube k9s"
+alias gcloud="docker_kube gcloud"
