@@ -1,6 +1,6 @@
 #!/usr/bin/env zsh
 
-SCRIPT_DIRECTORY="${0:a:h}"
+KUBE_SCRIPT_DIRECTORY="${0:a:h}"
 
 function docker_kube {
   IMAGE_NAME="ygiarelli/kube"
@@ -9,9 +9,9 @@ function docker_kube {
      docker build \
          --build-arg USER_ID=${UID} \
          --build-arg USER_NAME="${USER}" \
-         -f "${SCRIPT_DIRECTORY}/kube.Dockerfile" \
+         -f "${KUBE_SCRIPT_DIRECTORY}/kube.Dockerfile" \
          -t "${IMAGE_NAME}" \
-         "${SCRIPT_DIRECTORY}"
+         "${KUBE_SCRIPT_DIRECTORY}"
   fi
 
   if [ $? -ne 0 ]; then

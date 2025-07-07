@@ -2,24 +2,24 @@
 
 SUPPORTED_NODE_VERSIONS=(20 22 24)
 
-SCRIPT_DIRECTORY="${0:a:h}"
-IMAGE_PREFIX="ygiarelli/node"
+NODE_SCRIPT_DIRECTORY="${0:a:h}"
+NODE_IMAGE_PREFIX="ygiarelli/node"
 
 function docker_node {
-  IMAGE_NAME="${IMAGE_PREFIX}:${1}"
+  NODE_IMAGE_NAME="${NODE_IMAGE_PREFIX}:${1}"
 
-  if [ -z "$(docker image list -q "${IMAGE_NAME}" 2> /dev/null)" ]; then
+  if [ -z "$(docker image list -q "${NODE_IMAGE_NAME}" 2> /dev/null)" ]; then
      docker build \
          --build-arg NODE_VERSION="${1}" \
          --build-arg USER_ID=${UID} \
          --build-arg USER_NAME="${USER}" \
-         -f "${SCRIPT_DIRECTORY}/node.Dockerfile" \
-         -t "${IMAGE_NAME}" \
-         "${SCRIPT_DIRECTORY}"
+         -f "${NODE_SCRIPT_DIRECTORY}/node.Dockerfile" \
+         -t "${NODE_IMAGE_NAME}" \
+         "${NODE_SCRIPT_DIRECTORY}"
   fi
 
   if [ $? -ne 0 ]; then
-    echo "Failed to build Docker image ${IMAGE_NAME}"
+    echo "Failed to build Docker image ${NODE_IMAGE_NAME}"
 
     return 1
   fi
@@ -36,12 +36,12 @@ function docker_node {
     --network host \
     --privileged \
     ${EXTRA_ARGS} \
-    "${IMAGE_NAME}" \
+    "${NODE_IMAGE_NAME}" \
     "${@[@]:2}"
 }
 
 clean_node_docker_images() {
-  docker image list -q "${IMAGE_PREFIX}:*" | xargs -r docker image rm -f
+  docker image list -q "${NODE_IMAGE_PREFIX}:*" | xargs -r docker image rm -f
 }
 
 for version in "${SUPPORTED_NODE_VERSIONS[@]}"; do

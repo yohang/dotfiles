@@ -1,6 +1,6 @@
 #!/usr/bin/env zsh
 
-SCRIPT_DIRECTORY="${0:a:h}"
+LASTPASS_SCRIPT_DIRECTORY="${0:a:h}"
 
 function docker_lastpass {
   IMAGE_NAME="ygiarelli/lastpass-cli"
@@ -9,9 +9,9 @@ function docker_lastpass {
      docker build \
          --build-arg USER_ID=${UID} \
          --build-arg USER_NAME="${USER}" \
-         -f "${SCRIPT_DIRECTORY}/lastpass.Dockerfile" \
+         -f "${LASTPASS_SCRIPT_DIRECTORY}/lastpass.Dockerfile" \
          -t "${IMAGE_NAME}" \
-         "${SCRIPT_DIRECTORY}"
+         "${LASTPASS_SCRIPT_DIRECTORY}"
   fi
 
   if [ $? -ne 0 ]; then
