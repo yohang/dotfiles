@@ -1,0 +1,22 @@
+[user]
+	signingkey = 078255ECA7205978215CECC63159E92C5065F2A4
+	name = Yohan Giarelli
+	email = yohan@les-tilleuls.coop
+[commit]
+	gpgsign = true
+[tag]
+	gpgSign = true
+[core]
+	excludesfile = /home/yohan/.gitignore_global
+	editor = vim
+[alias]
+	st = status
+[rerere]
+  enabled = true
+[init]
+	defaultBranch = main
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
