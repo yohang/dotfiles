@@ -47,4 +47,5 @@ for version in "${SUPPORTED_PYTHON_VERSIONS[@]}"; do
 done
 
 alias pip="python pip"
+alias http="python http"
 alias httpie="python httpie"
