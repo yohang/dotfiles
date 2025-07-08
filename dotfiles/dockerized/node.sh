@@ -33,6 +33,7 @@ function docker_node {
     -v /home:/home \
     -v /tmp/.X11-unix:/tmp/.X11-unix \
     -e DISPLAY \
+    -e GEMINI_API_KEY \
     --network host \
     --privileged \
     ${EXTRA_ARGS} \
@@ -53,3 +54,4 @@ alias npm="node npm"
 alias npx="node npx"
 alias yarn="node yarn"
 alias pnpm="node pnpm"
+alias gemini="node gemini"
