@@ -26,3 +26,4 @@ RUN adduser --disabled-password --uid ${USER_ID} ${USER_NAME}; \
 USER ${USER_NAME}
 
 WORKDIR /home/${USER_NAME}
+

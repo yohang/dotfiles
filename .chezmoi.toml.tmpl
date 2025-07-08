@@ -6,3 +6,5 @@ encryption = "gpg"
 [gpg]
     symmetric = true
     args = ["--batch", "--passphrase", {{ $passphrase | quote }}, "--no-symkey-cache"]
+[edit]
+    command = "vim"
