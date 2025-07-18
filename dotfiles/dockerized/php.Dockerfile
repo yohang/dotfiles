@@ -28,6 +28,10 @@ RUN mv /usr/local/etc/php/php.ini-development /usr/local/etc/php/php.ini; \
 
 COPY --chmod=0755 --from=composer_base /usr/bin/composer /usr/local/bin/composer
 
+RUN curl "https://castor.jolicode.com/install" | bash; \
+    mv /root/.local/bin/castor /usr/local/bin/castor; \
+    chmod a+x /usr/local/bin/castor
+
 RUN adduser --disabled-password --uid ${USER_ID} ${USER_NAME}; \
     echo "${USER_NAME}	ALL=(ALL:ALL) NOPASSWD: ALL" > /etc/sudoers.d/${USER_NAME};
 

@@ -47,3 +47,4 @@ for version in "${SUPPORTED_PHP_VERSIONS[@]}"; do
 done
 
 alias composer="php composer"
+alias castor="php castor"
