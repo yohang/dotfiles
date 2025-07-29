@@ -1,6 +1,6 @@
-ARG PYTHON_VERSION=3.13
+ARG RUST_VERSION=1.88
 
-FROM python:${PYTHON_VERSION}
+FROM rust:${RUST_VERSION}
 
 SHELL ["/bin/bash", "-e", "-u", "-x", "-o", "pipefail", "-c"]
 
@@ -12,14 +12,14 @@ RUN apt update; \
       file \
       gettext \
       git \
-      jq \
       ssh-client \
       sudo; \
     apt clean; \
     rm -rf /var/lib/apt/lists/*
 
-RUN pip install \
-    httpie
+RUN cargo install \
+    tlrc \
+    --locked
 
 RUN adduser --disabled-password --uid ${USER_ID} ${USER_NAME}; \
     echo "${USER_NAME}	ALL=(ALL:ALL) NOPASSWD: ALL" > /etc/sudoers.d/${USER_NAME};

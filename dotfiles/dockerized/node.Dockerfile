@@ -19,7 +19,8 @@ RUN apt update; \
     corepack enable; \
     pnpm version
 
-RUN npm install -g @google/gemini-cli
+RUN npm install -g \
+    @google/gemini-cli
 
 RUN adduser --disabled-password --uid ${USER_ID} ${USER_NAME}; \
     echo "${USER_NAME}	ALL=(ALL:ALL) NOPASSWD: ALL" > /etc/sudoers.d/${USER_NAME};
