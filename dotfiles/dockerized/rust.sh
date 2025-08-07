@@ -1,5 +1,9 @@
 #!/usr/bin/env zsh
 
+if [[ 1 -eq $INSIDE_DOCKER ]]; then
+  return
+fi
+
 SUPPORTED_RUST_VERSIONS=(1.88)
 
 RUST_SCRIPT_DIRECTORY="${0:a:h}"
@@ -13,7 +17,7 @@ function docker_rust {
          --build-arg RUST_VERSION="${1}" \
          --build-arg USER_ID=${UID} \
          --build-arg USER_NAME="${USER}" \
-         -f "${RUST_SCRIPT_DIRECTORY}/rust.Dockerfile" \
+         --target rust \
          -t "${RUST_IMAGE_NAME}" \
          "${RUST_SCRIPT_DIRECTORY}"
   fi
@@ -46,5 +50,6 @@ for version in "${SUPPORTED_RUST_VERSIONS[@]}"; do
   alias rust="rust${version}"
 done
 
+alias rustc="rust rustc"
 alias cargo="rust cargo"
 alias tldr="rust tldr"

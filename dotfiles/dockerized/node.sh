@@ -1,5 +1,9 @@
 #!/usr/bin/env zsh
 
+if [[ 1 -eq $INSIDE_DOCKER ]]; then
+  return
+fi
+
 SUPPORTED_NODE_VERSIONS=(20 22 24)
 
 NODE_SCRIPT_DIRECTORY="${0:a:h}"
@@ -13,7 +17,7 @@ function docker_node {
          --build-arg NODE_VERSION="${1}" \
          --build-arg USER_ID=${UID} \
          --build-arg USER_NAME="${USER}" \
-         -f "${NODE_SCRIPT_DIRECTORY}/node.Dockerfile" \
+         --target node \
          -t "${NODE_IMAGE_NAME}" \
          "${NODE_SCRIPT_DIRECTORY}"
   fi

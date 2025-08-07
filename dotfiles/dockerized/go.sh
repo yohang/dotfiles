@@ -1,5 +1,9 @@
 #!/usr/bin/env zsh
 
+if [[ 1 -eq $INSIDE_DOCKER ]]; then
+  return
+fi
+
 SUPPORTED_GO_VERSIONS=(1.24)
 
 GO_SCRIPT_DIRECTORY="${0:a:h}"
@@ -13,8 +17,8 @@ function docker_go {
          --build-arg GO_VERSION="${1}" \
          --build-arg USER_ID=${UID} \
          --build-arg USER_NAME="${USER}" \
-         -f "${GO_SCRIPT_DIRECTORY}/go.Dockerfile" \
          -t "${GO_IMAGE_NAME}" \
+         --target go \
          "${GO_SCRIPT_DIRECTORY}"
   fi
 

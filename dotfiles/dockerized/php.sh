@@ -1,19 +1,23 @@
 #!/usr/bin/env zsh
 
+if [[ 1 -eq $INSIDE_DOCKER ]]; then
+  return
+fi
+
 SUPPORTED_PHP_VERSIONS=(7.4 8.0 8.1 8.2 8.3 8.4)
 
 PHP_SCRIPT_DIRECTORY="${0:a:h}"
 PHP_IMAGE_PREFIX="ygiarelli/php"
 
 function docker_php {
-  PHP_IMAGE_NAME="${PHP_IMAGE_PREFIX}:${1}-cli"
+  PHP_IMAGE_NAME="${PHP_IMAGE_PREFIX}:${1}"
 
   if [ -z "$(docker image list -q "${PHP_IMAGE_NAME}" 2> /dev/null)" ]; then
      docker build \
          --build-arg PHP_VERSION="${1}" \
          --build-arg USER_ID=${UID} \
          --build-arg USER_NAME="${USER}" \
-         -f "${PHP_SCRIPT_DIRECTORY}/php.Dockerfile" \
+         --target php \
          -t "${PHP_IMAGE_NAME}" \
          "${PHP_SCRIPT_DIRECTORY}"
   fi

@@ -1,5 +1,9 @@
 #!/usr/bin/env zsh
 
+if [[ 1 -eq $INSIDE_DOCKER ]]; then
+  return
+fi
+
 SUPPORTED_PYTHON_VERSIONS=(3.13)
 
 PYTHON_SCRIPT_DIRECTORY="${0:a:h}"
@@ -13,7 +17,7 @@ function docker_python {
          --build-arg PYTHON_VERSION="${1}" \
          --build-arg USER_ID=${UID} \
          --build-arg USER_NAME="${USER}" \
-         -f "${PYTHON_SCRIPT_DIRECTORY}/python.Dockerfile" \
+         --target python \
          -t "${PYTHON_IMAGE_NAME}" \
          "${PYTHON_SCRIPT_DIRECTORY}"
   fi
