@@ -29,6 +29,7 @@ function dockerized_build_and_run {
 
   docker run -it --rm \
     -v /home:/home \
+    -v /var/run/docker.sock:/var/run/docker.sock \
     --network host \
     ${EXTRA_ARGS} \
     "${IMAGE_NAME}" \

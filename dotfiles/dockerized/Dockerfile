@@ -11,8 +11,7 @@ SHELL ["/bin/bash", "-e", "-u", "-x", "-o", "pipefail", "-c"]
 
 ARG USER_ID=1000
 ARG USER_NAME=user
-
-# libbz2-dev libc6-dev libcurl4-openssl-dev libdb-dev libevent-dev libffi-dev libglib2.0-dev libmaxminddb-dev libncurses5-dev libncursesw5-dev libreadline-dev libssl-dev libtool xz-utils zlib1g-dev
+ARG DOCKER_GROUP_ID=999
 
 RUN apt update; \
     apt install -y --no-install-recommends \
@@ -43,15 +42,29 @@ RUN apt update; \
     apt clean; \
     rm -rf /var/lib/apt/lists/*
 
+RUN adduser --disabled-password --uid ${USER_ID} ${USER_NAME}; \
+    echo "${USER_NAME}	ALL=(ALL:ALL) NOPASSWD: ALL" > /etc/sudoers.d/${USER_NAME};
+
+RUN install -m 0755 -d /etc/apt/keyrings; \
+    curl -fsSL https://download.docker.com/linux/debian/gpg -o /etc/apt/keyrings/docker.asc; \
+    chmod a+r /etc/apt/keyrings/docker.asc; \
+    echo \
+      "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/debian \
+      $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
+      tee /etc/apt/sources.list.d/docker.list > /dev/null; \
+    apt update; \
+    apt install -y docker-ce-cli; \
+    apt clean; \
+    rm -rf /var/lib/apt/lists/*; \
+    groupadd --gid ${DOCKER_GROUP_ID} docker; \
+    usermod -aG docker ${USER_NAME}
+
 
 RUN wget $(curl --dump-header - https://github.com/zellij-org/zellij/releases/latest 2>/dev/null | grep -i 'location: ' | awk '{print $2; }' | sed 's/tag/download/g' | rev | cut --complement -c-1 | rev)/zellij-x86_64-unknown-linux-musl.tar.gz; \
     tar -xvf zellij*.tar.gz; \
     chmod a+x zellij; \
     mv zellij /usr/local/bin/zellij; \
     rm zellij*.tar.gz
-
-RUN adduser --disabled-password --uid ${USER_ID} ${USER_NAME}; \
-    echo "${USER_NAME}	ALL=(ALL:ALL) NOPASSWD: ALL" > /etc/sudoers.d/${USER_NAME};
 
 USER ${USER_NAME}
 
