@@ -31,6 +31,9 @@ function dockerized_build_and_run {
     -v /home:/home \
     -v /var/run/docker.sock:/var/run/docker.sock \
     --network host \
+    -v /tmp/.X11-unix:/tmp/.X11-unix \
+    -e DISPLAY \
+    --privileged \
     ${EXTRA_ARGS} \
     "${IMAGE_NAME}" \
     "${@[@]:3}"
@@ -40,4 +43,10 @@ dockerized_clean() {
   IMAGE_PREFIX="ygiarelli/${1}"
 
   docker image list -q "${IMAGE_PREFIX}:*" | xargs -r docker image rm -f
+}
+
+dockerized_clean_all() {
+  IMAGE_PREFIX="ygiarelli/"
+
+  docker image list -q "${IMAGE_PREFIX}*" | xargs -r docker image rm -f
 }

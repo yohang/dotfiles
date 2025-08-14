@@ -25,12 +25,15 @@ RUN apt update; \
       gcc \
       gettext \
       git \
+      gpg \
+      gpg-agent \
       htop \
       iotop \
       jq \
       locales-all \
       make \
       patch \
+      procps \
       screen \
       ssh-client \
       sudo \
@@ -72,10 +75,21 @@ WORKDIR /home/${USER_NAME}
 
 ENV LANG=fr_FR.UTF-8 \
     LC_ALL=fr_FR.UTF-8 \
-    INSIDE_DOCKER=1
+    USER=${USER_NAME} \
+    INSIDE_DOCKER=1 \
+    DISABLE_DOCKERIZED=1
+
+
+#
+#
+# Common Section
+FROM base AS common
+
+ENV DISABLE_DOCKERIZED=0
 
 ENTRYPOINT []
 CMD []
+
 
 #
 #
@@ -181,7 +195,7 @@ ENTRYPOINT ["/usr/local/bin/docker-entrypoint"]
 #
 # Node Section
 
-FROM node:${VERSION} AS node_upstream
+FROM node:${VERSION}-${DEBIAN_VERSION} AS node_upstream
 FROM base AS node
 
 USER root
@@ -197,7 +211,7 @@ USER ${USER_NAME}
 
 WORKDIR /home/${USER_NAME}
 
-RUN sudo npx playwright install-deps
+RUN sudo npx playwright@next install-deps
 
 ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
 

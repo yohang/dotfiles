@@ -1,6 +1,6 @@
 #!/usr/bin/env zsh
 
-if [[ 1 -eq $INSIDE_DOCKER ]]; then
+if [[ 1 -eq $DISABLE_DOCKERIZED ]]; then
   return
 fi
 
