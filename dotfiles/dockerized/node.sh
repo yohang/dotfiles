@@ -14,7 +14,7 @@ function docker_node {
 
   if [ -z "$(docker image list -q "${NODE_IMAGE_NAME}" 2> /dev/null)" ]; then
      docker build \
-         --build-arg NODE_VERSION="${1}" \
+         --build-arg VERSION="${1}" \
          --build-arg USER_ID=${UID} \
          --build-arg USER_NAME="${USER}" \
          --target node \

@@ -1,10 +1,6 @@
 ARG COMPOSER_VERSION=2
-ARG DEBIAN_VERSION=bookworm
-ARG GO_VERSION=1.24
-ARG NODE_VERSION=24
-ARG PHP_VERSION=8.4
-ARG PYTHON_VERSION=3.13
-ARG RUST_VERSION=1.88
+ARG DEBIAN_VERSION=trixie
+ARG VERSION=latest
 
 #
 #
@@ -72,7 +68,7 @@ CMD []
 #
 # PHP Section
 FROM composer:${COMPOSER_VERSION} AS composer_base
-FROM php:${PHP_VERSION}-zts AS php_upstream
+FROM php:${VERSION}-zts AS php_upstream
 FROM base AS php
 
 USER root
@@ -104,7 +100,7 @@ ENTRYPOINT ["/usr/local/bin/docker-php-entrypoint"]
 #
 #
 # Rust Section
-FROM rust:${RUST_VERSION}-${DEBIAN_VERSION} AS rust_upstream
+FROM rust:${VERSION}-${DEBIAN_VERSION} AS rust_upstream
 FROM base AS rust
 
 ENV RUSTUP_HOME=/usr/local/rustup \
@@ -138,7 +134,7 @@ ENTRYPOINT ["/usr/local/bin/docker-entrypoint"]
 #
 #
 # Go Section
-FROM golang:${GO_VERSION} AS go_upstream
+FROM golang:${VERSION} AS go_upstream
 FROM base AS go
 
 ENV GOTOOLCHAIN=local
@@ -172,7 +168,7 @@ ENTRYPOINT ["/usr/local/bin/docker-entrypoint"]
 #
 # Node Section
 
-FROM node:${NODE_VERSION} AS node_upstream
+FROM node:${VERSION} AS node_upstream
 FROM base AS node
 
 USER root
@@ -196,7 +192,7 @@ ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
 #
 #
 # Python Section
-FROM python:${PYTHON_VERSION} AS python_upstream
+FROM python:${VERSION} AS python_upstream
 FROM base AS python
 
 USER root
