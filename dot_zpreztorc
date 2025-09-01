@@ -154,11 +154,11 @@ zstyle ':prezto:module:editor' key-bindings 'emacs'
 
 # zstyle ':prezto:module:prompt' theme 'powerline'
 
-if [[ 1 -eq $INSIDE_DOCKER ]]; then
-    zstyle ':prezto:module:prompt' theme 'fade' 'yellow grey blue'
-else
+# if [[ 1 -eq $INSIDE_DOCKER ]]; then
+#     zstyle ':prezto:module:prompt' theme 'fade' 'yellow grey blue'
+# else
     zstyle ':prezto:module:prompt' theme 'paradox'
-fi
+# fi
 
 # Set the working directory prompt display length.
 # By default, it is set to 'short'. Set it to 'long' (without '~' expansion)

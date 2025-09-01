@@ -244,3 +244,39 @@ exec "$@" \n\
 USER ${USER_NAME}
 
 ENTRYPOINT ["/usr/local/bin/docker-entrypoint"]
+
+#
+#
+# Browser Section
+
+FROM base AS browser
+
+ARG BROWSH_VERSION=1.8.2
+
+RUN sudo apt update; \
+    sudo apt install -y --no-install-recommends \
+      chromium \
+      chromium-driver \
+      firefox-esr \
+      firefox-esr-l10n-fr \
+      lynx \
+      w3m \
+      w3m-img \
+    ; \
+    sudo apt clean; \
+    sudo rm -rf /var/lib/apt/lists/*
+
+RUN wget https://github.com/browsh-org/browsh/releases/download/v${BROWSH_VERSION}/browsh_${BROWSH_VERSION}_linux_amd64.deb; \
+    sudo dpkg -i browsh_${BROWSH_VERSION}_linux_amd64.deb; \
+    rm browsh_${BROWSH_VERSION}_linux_amd64.deb
+
+#
+#
+# Ngrok section
+
+FROM base AS ngrok
+
+RUN curl -sSL https://ngrok-agent.s3.amazonaws.com/ngrok.asc | sudo tee /etc/apt/trusted.gpg.d/ngrok.asc >/dev/null; \
+    echo "deb https://ngrok-agent.s3.amazonaws.com bookworm main" | sudo tee /etc/apt/sources.list.d/ngrok.list; \
+    sudo apt update; \
+    sudo apt install ngrok
