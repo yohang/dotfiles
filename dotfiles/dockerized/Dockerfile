@@ -69,6 +69,14 @@ RUN wget $(curl --dump-header - https://github.com/zellij-org/zellij/releases/la
     mv zellij /usr/local/bin/zellij; \
     rm zellij*.tar.gz
 
+RUN wget -nv https://cli.github.com/packages/githubcli-archive-keyring.gpg -O/etc/apt/keyrings/githubcli-archive-keyring.gpg; \
+    chmod go+r /etc/apt/keyrings/githubcli-archive-keyring.gpg; \
+    echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | tee /etc/apt/sources.list.d/github-cli.list > /dev/null; \
+    apt update; \
+    apt install gh -y; \
+    apt clean; \
+    rm -rf /var/lib/apt/lists/*
+
 USER ${USER_NAME}
 
 WORKDIR /home/${USER_NAME}
@@ -279,4 +287,18 @@ FROM base AS ngrok
 RUN curl -sSL https://ngrok-agent.s3.amazonaws.com/ngrok.asc | sudo tee /etc/apt/trusted.gpg.d/ngrok.asc >/dev/null; \
     echo "deb https://ngrok-agent.s3.amazonaws.com bookworm main" | sudo tee /etc/apt/sources.list.d/ngrok.list; \
     sudo apt update; \
-    sudo apt install ngrok
+    sudo apt install ngrok; \
+    sudo apt clean; \
+    sudo rm -rf /var/lib/apt/lists/*
+
+
+#
+#
+# SSH section
+
+FROM base AS ssh-server
+
+RUN sudo apt update; \
+    sudo apt install -y --no-install-recommends openssh-server; \
+    sudo apt clean; \
+    sudo rm -rf /var/lib/apt/lists/*
