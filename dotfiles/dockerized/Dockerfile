@@ -109,13 +109,39 @@ FROM base AS php
 USER root
 
 RUN apt update; \
-    apt install -y --no-install-recommends libargon2-dev libcurl4-openssl-dev libonig-dev libreadline-dev libsodium-dev libsqlite3-dev libssl-dev libxml2-dev zlib1g-dev; \
+    apt install -y --no-install-recommends \
+      libargon2-dev \
+      libavif-dev \
+      libcurl4-openssl-dev \
+      libfreetype-dev \
+      libicu-dev \
+      libjpeg-dev \
+      liblz4-dev \
+      libonig-dev \
+      libpng-dev \
+      libpq-dev \
+      libreadline-dev \
+      libsodium-dev \
+      libsqlite3-dev \
+      libssl-dev \
+      libxml2-dev \
+      libwebp-dev \
+      libxpm-dev \
+      libzip-dev \
+      sqlite3 \
+      xz-utils \
+      zlib1g-dev; \
     apt clean; \
     rm -rf /var/lib/apt/lists/*
 
 COPY --from=php_upstream /usr/local /usr/local
+COPY --from=php_upstream /usr/src /usr/src
+
+ENV PHP_INI_DIR=/usr/local/etc/php
 
 ADD --chmod=0755 https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
+
+RUN install-php-extensions gd intl pdo_mysql pdo_pgsql redis zip pcov
 
 RUN mv /usr/local/etc/php/php.ini-development /usr/local/etc/php/php.ini; \
     sed -i -E 's/memory_limit = \w+/memory_limit = -1/g' /usr/local/etc/php/php.ini
