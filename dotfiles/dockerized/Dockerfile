@@ -176,6 +176,8 @@ COPY --from=rust_upstream /usr/local /usr/local
 RUN cargo install --locked \
     tlrc
 
+RUN curl --proto '=https' --tlsv1.2 -sSf https://carthage.software/mago.sh | bash
+
 RUN echo $'#!/bin/sh \n\
 set -e \n\
 \n\
@@ -223,6 +225,8 @@ exec "$@" \n\
 
 USER ${USER_NAME}
 
+RUN go install github.com/stern/stern@latest
+
 ENTRYPOINT ["/usr/local/bin/docker-entrypoint"]
 
 #
@@ -260,8 +264,17 @@ USER root
 
 COPY --from=python_upstream /usr/local /usr/local
 
+RUN sudo apt update; \
+    sudo apt install -y --no-install-recommends \
+      python3-tk \
+    ; \
+    sudo apt clean; \
+    sudo rm -rf /var/lib/apt/lists/*
+
+
 RUN pip install \
-    httpie
+    httpie \
+    poetry
 
 RUN echo $'#!/bin/sh \n\
 set -e \n\

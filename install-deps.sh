@@ -19,8 +19,6 @@ curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.s
 # Docker install
 sudo install -m 0755 -d /etc/apt/keyrings
 
-
-
 if [ -n "$(lsb_release -i | grep Ubuntu)" ]; then
   sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
   echo \
@@ -49,5 +47,6 @@ if [ ! -d ~/.zpresto ]; then
   zsh -c 'setopt EXTENDED_GLOB; for rcfile in "${ZDOTDIR:-$HOME}"/.zprezto/runcoms/^README.md(.N); do ln -s "$rcfile" "${ZDOTDIR:-$HOME}/.${rcfile:t}"; done'
   chsh -s /bin/zsh
 fi
+
 
 chezmoi apply

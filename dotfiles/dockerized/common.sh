@@ -7,4 +7,3 @@ fi
 source ${0:a:h}/functions.sh
 
 alias czsh="dockerized_build_and_run common latest zsh"
-alias zellij="dockerized_build_and_run common latest zellij"
