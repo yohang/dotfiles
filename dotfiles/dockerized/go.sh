@@ -12,4 +12,4 @@ for version in "${SUPPORTED_GO_VERSIONS[@]}"; do
   alias "go${version}"="dockerized_build_and_run go ${version}"
 done
 
-alias stern="go1.25 stern"
+alias stern="go1.26 stern"

@@ -12,6 +12,6 @@ for version in "${SUPPORTED_PYTHON_VERSIONS[@]}"; do
   alias "python${version}"="dockerized_build_and_run python ${version}"
 done
 
-alias http="python3.15 http"
-alias httpie="python3.15 httpie"
-alias poetry="python3.15 poetry"
+alias http="python3.14 http"
+alias httpie="python3.14 httpie"
+alias poetry="python3.14 poetry"

@@ -240,7 +240,7 @@ USER root
 WORKDIR /root
 
 COPY --from=node_upstream /usr/local /usr/local
-RUN rm /usr/local/bin/yarn /usr/local/bin/yarnpkg; \
+RUN rm -rf /usr/local/bin/yarn /usr/local/bin/yarnpkg; \
     corepack enable; \
     npm install -g \
     @google/gemini-cli
