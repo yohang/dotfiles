@@ -1,0 +1,3 @@
+config-file = ?auto/theme.ghostty
+
+command = zellij attach -c
