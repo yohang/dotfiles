@@ -37,6 +37,6 @@ clean_kube_docker_image() {
   docker image list -q "${IMAGE_NAME}:*" | xargs -r docker image rm -f
 }
 
-alias kubectl="docker_kube"
-alias k9s="docker_kube k9s"
-alias gcloud="docker_kube gcloud"
+alias dkubectl="docker_kube"
+alias dk9s="docker_kube k9s"
+alias dgcloud="docker_kube gcloud"

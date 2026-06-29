@@ -35,4 +35,7 @@ export NVM_DIR="$HOME/.nvm"
 # Added by Antigravity CLI installer
 export PATH="/home/yohan/.local/bin:$PATH"
 
+autoload -Uz bashcompinit && bashcompinit
+[[ -e "/home/yohan/lib/oracle-cli/lib/python3.13/site-packages/oci_cli/bin/oci_autocomplete.sh" ]] && source "/home/yohan/lib/oracle-cli/lib/python3.13/site-packages/oci_cli/bin/oci_autocomplete.sh"
+
 source ~/.zshenv
